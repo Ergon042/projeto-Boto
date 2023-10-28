@@ -15,6 +15,8 @@ public class PlayerController : MonoBehaviour
 
     public Camera viewCam;
 
+    public GameObject bulletImpact;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -46,7 +48,8 @@ public class PlayerController : MonoBehaviour
                 RaycastHit hit;
                 if(Physics.Raycast(ray, out hit))
                 {
-                    Debug.Log(" I'm looking at " + hit.transform.name);
+                    //Debug.Log(" I'm looking at " + hit.transform.name);
+                    Instantiate(bulletImpact, hit.point, transform.rotation);
                 } else
                 {
                     Debug.Log(" I'm looking at nothing!");
