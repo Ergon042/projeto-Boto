@@ -14,11 +14,11 @@ public class EnemyBullet : MonoBehaviour
 
     private Animator anim;
 
-    private bool exp;
+    private int exp;
 
     // Start is called before the first frame update
-    void Start()
-    {
+   private void Start()
+    { 
         anim = GetComponent<Animator>();
         direction = PlayerController.instance.transform.position - transform.position;
         direction.Normalize();
@@ -26,34 +26,38 @@ public class EnemyBullet : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+   private void Update()
     {
+        UAS(0);
         theRB.velocity = direction * bulletSpeed;
-        UpdateAnimationUpdate();
+        
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
         if(other.tag == "Player")
         {
-            exp = true;
+            UAS(1);
             PlayerController.instance.TakeDamage(damageAmount);
 
             Destroy(gameObject);
         } else if(other.tag == "Parede")
         {
-            exp = true;
+
+            UAS(1);
             Destroy(gameObject);
         }
         
     }
 
-    private void UpdateAnimationUpdate()
+    private void UAS(int exp)
     {
-        if (exp == true)
+        
+        if (exp == 1)
         {
-            anim.SetBool("explosao", true);
-            exp = false;
+            Debug.Log("batata");
+            anim.SetBool("expo", true);
+            
         }        
     }
 }
