@@ -1903,8 +1903,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -4.2811, y: -0.7651}
-  m_SizeDelta: {x: 634.7117, y: 208.6318}
+  m_AnchoredPosition: {x: 2.5055, y: 0.8647}
+  m_SizeDelta: {x: 575.7955, y: 197.0477}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &237409371
 MonoBehaviour:
@@ -3220,7 +3220,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 491273374}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 491273372}
+        m_TargetAssemblyTypeName: ReloadScene, Assembly-CSharp
+        m_MethodName: ResetScene
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &491273374
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6022,7 +6034,7 @@ MonoBehaviour:
   gunAnim: {fileID: 1166841}
   currentHealth: 0
   maxHealth: 100
-  deadScreen: {fileID: 0}
+  deadScreen: {fileID: 1276252339}
 --- !u!58 &886109733
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -7662,12 +7674,12 @@ GameObject:
   - component: {fileID: 1276252342}
   - component: {fileID: 1276252341}
   m_Layer: 5
-  m_Name: Image
+  m_Name: Dead Screen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1276252340
 RectTransform:
   m_ObjectHideFlags: 0
