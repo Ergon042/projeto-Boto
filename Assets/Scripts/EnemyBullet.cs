@@ -14,7 +14,7 @@ public class EnemyBullet : MonoBehaviour
 
     private Animator anim;
 
-    private bool exp;
+    //private bool exp;
 
     // Start is called before the first frame update
     void Start()
@@ -29,31 +29,31 @@ public class EnemyBullet : MonoBehaviour
     void Update()
     {
         theRB.velocity = direction * bulletSpeed;
-        UpdateAnimationUpdate();
+        //UpdateAnimationUpdate();
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
         if(other.tag == "Player")
         {
-            exp = true;
+            //exp = true;
             PlayerController.instance.TakeDamage(damageAmount);
 
             Destroy(gameObject);
         } else if(other.tag == "Parede")
         {
-            exp = true;
+            //exp = true;
             Destroy(gameObject);
         }
         
     }
 
-    private void UpdateAnimationUpdate()
-    {
-        if (exp == true)
-        {
-            anim.SetBool("explosao", true);
-            exp = false;
-        }        
-    }
+//    private void UpdateAnimationUpdate()
+//    {
+//        if (exp == true)
+//        {
+//            anim.SetBool("explosao", true);
+//            exp = false;
+//        }        
+//    }
 }
