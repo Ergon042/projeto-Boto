@@ -22,6 +22,11 @@ public class PlayerController : MonoBehaviour
 
     public Animator gunAnim;
 
+    public int currentHealth;
+    public int maxHealth = 100;
+    public GameObject deadScreen;
+    private bool hasDied;
+
     private void Awake()
     {
         instance = this;
@@ -30,31 +35,33 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        currentHealth = maxHealth;
     }
 
     // Update is called once per frame
     void Update()
     {
-        moveInput = new Vector2(Input.GetAxis("Horizontal"),Input.GetAxis("Vertical"));
+        if (!hasDied)
+        {
+            moveInput = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
 
-        Vector3 moveHorizontal = transform.up * -moveInput.x;
+            Vector3 moveHorizontal = transform.up * -moveInput.x;
 
-        Vector3 moveVertical = transform.right * moveInput.y;  
+            Vector3 moveVertical = transform.right * moveInput.y;
 
-        theRB.velocity = (moveHorizontal + moveVertical) * moveSpeed;
+            theRB.velocity = (moveHorizontal + moveVertical) * moveSpeed;
 
-         //player view control
+            //player view control
 
-        mouseInput = new Vector2(Input.GetAxisRaw("Mouse X"), Input.GetAxisRaw("Mouse Y")) * mouseSensitivity;
+            mouseInput = new Vector2(Input.GetAxisRaw("Mouse X"), Input.GetAxisRaw("Mouse Y")) * mouseSensitivity;
 
-        transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y, transform.rotation.eulerAngles.z - mouseInput.x);
+            transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y, transform.rotation.eulerAngles.z - mouseInput.x);
 
-        viewCam.transform.localRotation = Quaternion.Euler(viewCam.transform.localRotation.eulerAngles + new Vector3(0f, mouseInput.y,0f));
+            viewCam.transform.localRotation = Quaternion.Euler(viewCam.transform.localRotation.eulerAngles + new Vector3(0f, mouseInput.y, 0f));
 
-        //Shooting
-            if(Input.GetMouseButtonDown(0)){
-                if(currentAmmo > 0)
+            //Shooting
+            if (Input.GetMouseButtonDown(0)) {
+                if (currentAmmo > 0)
                 {
                     Ray ray = viewCam.ViewportPointToRay(new Vector3(.5f, .5f, 0f));
                     RaycastHit hit;
@@ -62,6 +69,11 @@ public class PlayerController : MonoBehaviour
                     {
                         //Debug.Log(" I'm looking at " + hit.transform.name);
                         Instantiate(bulletImpact, hit.point, transform.rotation);
+
+                        if (hit.transform.tag == "Enemy")
+                        {
+                            hit.transform.parent.GetComponent<EnemyController>().TakeDamage();
+                        }
                     }
                     else
                     {
@@ -71,5 +83,26 @@ public class PlayerController : MonoBehaviour
                     gunAnim.SetTrigger("Shoot");
                 }
             }
+        }
+    }
+
+    public void TakeDamage(int damageAmount)
+    {
+        currentHealth -= damageAmount;
+
+        if (currentHealth <= 0)
+        {
+            deadScreen.SetActive(true);
+            hasDied = true;
+        }
+    }
+
+    public void AddHealth(int healAmount)
+    {
+        currentHealth += healAmount;
+        if(currentHealth > maxHealth)
+        {
+            currentHealth = maxHealth;
+        }
     }
 }
