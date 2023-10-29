@@ -124,6 +124,7 @@ MonoBehaviour:
   damageAmount: 5
   bulletSpeed: 1.54
   theRB: {fileID: 1468357504090573029}
+  explosion: {fileID: 1650615264731633376, guid: 3b23f13169443c34baa55a6962a00823, type: 3}
 --- !u!50 &1468357504090573029
 Rigidbody2D:
   serializedVersion: 4

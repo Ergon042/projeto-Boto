@@ -55,7 +55,7 @@ public class EnemyController : MonoBehaviour
         if(health <= 0)
         {
             Destroy(gameObject);
-            Instantiate(explosion, transform.position, transform.rotation);
+            
         }
     }
 }

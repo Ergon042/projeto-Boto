@@ -12,14 +12,12 @@ public class EnemyBullet : MonoBehaviour
 
     private Vector3 direction;
 
-    private Animator anim;
+    public GameObject explosion;
 
-    //private bool exp;
 
     // Start is called before the first frame update
     void Start()
     {
-        anim = GetComponent<Animator>();
         direction = PlayerController.instance.transform.position - transform.position;
         direction.Normalize();
         direction = direction * bulletSpeed;
@@ -29,31 +27,20 @@ public class EnemyBullet : MonoBehaviour
     void Update()
     {
         theRB.velocity = direction * bulletSpeed;
-        //UpdateAnimationUpdate();
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
         if(other.tag == "Player")
         {
-            //exp = true;
             PlayerController.instance.TakeDamage(damageAmount);
 
             Destroy(gameObject);
         } else if(other.tag == "Parede")
         {
-            //exp = true;
             Destroy(gameObject);
+            Instantiate(explosion, transform.position, transform.rotation);
         }
         
     }
-
-//    private void UpdateAnimationUpdate()
-//    {
-//        if (exp == true)
-//        {
-//            anim.SetBool("explosao", true);
-//            exp = false;
-//        }        
-//    }
 }
