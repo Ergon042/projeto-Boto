@@ -81,6 +81,8 @@ public class PlayerController : MonoBehaviour
                         {
                             hit.transform.parent.GetComponent<EnemyController>().TakeDamage();
                         }
+
+                        AudioController.instance.PlayGunshot();
                     }
                     else
                     {
@@ -107,6 +109,8 @@ public class PlayerController : MonoBehaviour
             musiquinha.Stop();
         }
         healthText.text = currentHealth.ToString() + "%";
+
+        AudioController.instance.PlayPlayerHurt();
     }
 
     public void AddHealth(int healAmount)
