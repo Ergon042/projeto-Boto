@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/GPJ FPS Assets/Scene/Menu.unity
+    guid: c334ac9dc47ed2b4b95052e91cd8eca9
+  - enabled: 1
     path: Assets/GPJ FPS Assets/Scene/Startup.unity
     guid: a85d1aefaec7c6a47bc399860f255f6b
   m_configObjects: {}
