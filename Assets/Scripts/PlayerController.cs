@@ -5,6 +5,9 @@ using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
+
+    public AudioSource musiquinha;
+        
     public static PlayerController instance;
 
     public Rigidbody2D theRB;
@@ -100,6 +103,8 @@ public class PlayerController : MonoBehaviour
             deadScreen.SetActive(true);
             hasDied = true;
             currentHealth = 0;
+
+            musiquinha.Stop();
         }
         healthText.text = currentHealth.ToString() + "%";
     }
