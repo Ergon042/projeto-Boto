@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class EnemyController : MonoBehaviour
 {
@@ -18,25 +19,21 @@ public class EnemyController : MonoBehaviour
     public GameObject bullet;
     public Transform firePoint;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField] private string nomeDoLevelDeJogo;
 
     // Update is called once per frame
     void Update()
     {
-        if(Vector3.Distance(transform.position, PlayerController.instance.transform.position) < playerRange)
+        if (Vector3.Distance(transform.position, PlayerController.instance.transform.position) < playerRange)
         {
             Vector3 playerDirection = PlayerController.instance.transform.position - transform.position;
 
             theRB.velocity = playerDirection.normalized * moveSpeed;
 
-            if(shouldShoot)
+            if (shouldShoot)
             {
                 shotCounter -= Time.deltaTime;
-                if(shotCounter <= 0)
+                if (shotCounter <= 0)
                 {
                     Instantiate(bullet, firePoint.position, firePoint.rotation);
                     shotCounter = fireRate;
@@ -49,16 +46,19 @@ public class EnemyController : MonoBehaviour
         }
     }
 
-    public void TakeDamage() 
+    public void TakeDamage()
     {
         health--;
-        if(health <= 0)
+        if (health <= 0)
         {
             Destroy(gameObject);
             Instantiate(explosion, transform.position, transform.rotation);
 
             AudioController.instance.PlayEnemyDeath();
-        }else{
+            SceneManager.LoadScene(nomeDoLevelDeJogo);
+        }
+        else
+        {
             AudioController.instance.PlayEnemyShot();
         }
     }
