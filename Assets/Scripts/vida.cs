@@ -23,8 +23,11 @@ public class vida : MonoBehaviour
         if (other.tag == "Player")
         {
             PlayerController.instance.AddHealth(joja);
+            
+            AudioController.instance.PlayAHealthPickup();
 
             Destroy(gameObject);
+
         }
     }
 }
