@@ -2,9 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
+    [SerializeField] private string nomeDoLevelDeJogo;
 
     public AudioSource musiquinha;
         
@@ -107,6 +109,8 @@ public class PlayerController : MonoBehaviour
             currentHealth = 0;
 
             musiquinha.Stop();
+
+            SceneManager.UnloadScene(nomeDoLevelDeJogo);
         }
         healthText.text = currentHealth.ToString() + "%";
 
