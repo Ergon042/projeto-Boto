@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private string nomeDoLevelDeJogo;
+    [SerializeField] private string morte;
 
     public AudioSource musiquinha;
         
@@ -104,13 +105,12 @@ public class PlayerController : MonoBehaviour
 
         if (currentHealth <= 0)
         {
-            deadScreen.SetActive(true);
             hasDied = true;
             currentHealth = 0;
 
             musiquinha.Stop();
 
-            SceneManager.UnloadScene(nomeDoLevelDeJogo);
+            SceneManager.LoadScene(morte);
         }
         healthText.text = currentHealth.ToString() + "%";
 

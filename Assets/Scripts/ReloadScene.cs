@@ -5,10 +5,11 @@ using UnityEngine.SceneManagement;
 
 public class ReloadScene : MonoBehaviour
 {
+    [SerializeField] private string nomeDoLevelDeJogo;
 
     public void ResetScene()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        SceneManager.LoadScene(nomeDoLevelDeJogo);
     }
 
     public void SairJogo()

@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/GPJ FPS Assets/Scene/Vitoria.unity
     guid: 468167ce4a0677844b821586a92002fa
+  - enabled: 1
+    path: Assets/GPJ FPS Assets/Scene/Morte.unity
+    guid: e926c52d4edccf1449855c2fd40080f2
   m_configObjects: {}
