@@ -14,7 +14,6 @@ public class ReloadScene : MonoBehaviour
 
     public void SairJogo()
     {
-        Debug.Log("Sair do jogo");
         Application.Quit();
     }
 }

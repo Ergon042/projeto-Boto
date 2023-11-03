@@ -20,7 +20,7 @@ public class PlayerController : MonoBehaviour
     private Vector2 moveInput;
     private Vector2 mouseInput;
 
-    public float mouseSensitivity = 1f;
+    public static float mouseSensitivity = 1f;
 
     public Camera viewCam;
 
@@ -52,49 +52,53 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!hasDied)
+        if (!Pausar.pause)
         {
-            moveInput = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+            if (!hasDied)
+            {
+                moveInput = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
 
-            Vector3 moveHorizontal = transform.up * -moveInput.x;
+                Vector3 moveHorizontal = transform.up * -moveInput.x;
 
-            Vector3 moveVertical = transform.right * moveInput.y;
+                Vector3 moveVertical = transform.right * moveInput.y;
 
-            theRB.velocity = (moveHorizontal + moveVertical) * moveSpeed;
+                theRB.velocity = (moveHorizontal + moveVertical) * moveSpeed;
 
-            //player view control
+                //player view control
 
-            mouseInput = new Vector2(Input.GetAxisRaw("Mouse X"), Input.GetAxisRaw("Mouse Y")) * mouseSensitivity;
+                mouseInput = new Vector2(Input.GetAxisRaw("Mouse X"), Input.GetAxisRaw("Mouse Y")) * mouseSensitivity;
 
-            transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y, transform.rotation.eulerAngles.z - mouseInput.x);
+                transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y, transform.rotation.eulerAngles.z - mouseInput.x);
 
-            viewCam.transform.localRotation = Quaternion.Euler(viewCam.transform.localRotation.eulerAngles + new Vector3(0f, mouseInput.y, 0f));
+                viewCam.transform.localRotation = Quaternion.Euler(viewCam.transform.localRotation.eulerAngles + new Vector3(0f, mouseInput.y, 0f));
 
-            //Shooting
-            if (Input.GetMouseButtonDown(0)) {
-                if (currentAmmo > 0)
+                //Shooting
+                if (Input.GetMouseButtonDown(0))
                 {
-                    Ray ray = viewCam.ViewportPointToRay(new Vector3(.5f, .5f, 0f));
-                    RaycastHit hit;
-                    if (Physics.Raycast(ray, out hit))
+                    if (currentAmmo > 0)
                     {
-                        //Debug.Log(" I'm looking at " + hit.transform.name);
-                        Instantiate(bulletImpact, hit.point, transform.rotation);
-
-                        if (hit.transform.tag == "Enemy")
+                        Ray ray = viewCam.ViewportPointToRay(new Vector3(.5f, .5f, 0f));
+                        RaycastHit hit;
+                        if (Physics.Raycast(ray, out hit))
                         {
-                            hit.transform.parent.GetComponent<EnemyController>().TakeDamage();
-                        }
+                            //Debug.Log(" I'm looking at " + hit.transform.name);
+                            Instantiate(bulletImpact, hit.point, transform.rotation);
 
-                        AudioController.instance.PlayGunshot();
+                            if (hit.transform.tag == "Enemy")
+                            {
+                                hit.transform.parent.GetComponent<EnemyController>().TakeDamage();
+                            }
+
+                            AudioController.instance.PlayGunshot();
+                        }
+                        else
+                        {
+                            Debug.Log(" I'm looking at nothing!");
+                        }
+                        currentAmmo--;
+                        gunAnim.SetTrigger("Shoot");
+                        UpdateAmmoUI();
                     }
-                    else
-                    {
-                        Debug.Log(" I'm looking at nothing!");
-                    }
-                    currentAmmo--;
-                    gunAnim.SetTrigger("Shoot");
-                    UpdateAmmoUI();
                 }
             }
         }
