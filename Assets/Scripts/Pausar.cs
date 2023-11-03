@@ -36,6 +36,8 @@ public class Pausar : MonoBehaviour
 
     public void PauseGame()
     {
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
         pausa.SetActive(true);
         Time.timeScale = 0f;
         pause = true;
@@ -43,6 +45,8 @@ public class Pausar : MonoBehaviour
 
     public void ResumeGame()
     {
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
         pausa.SetActive(false);
         Time.timeScale = 1f;
         pause = false;

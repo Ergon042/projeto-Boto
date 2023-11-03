@@ -7,6 +7,12 @@ public class ReloadScene : MonoBehaviour
 {
     [SerializeField] private string nomeDoLevelDeJogo;
 
+    void Start()
+    {
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+    }
+
     public void ResetScene()
     {
         SceneManager.LoadScene(nomeDoLevelDeJogo);
